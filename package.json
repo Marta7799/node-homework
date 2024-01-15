@@ -1,20 +1,46 @@
 {
   
   "name": "homework",
+  
   "version": "1.0.0",
+  
   "main": "index.js",
-  "devDependencies": {},
+  
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "start:dev": "nodemon index.js"
+  
+    
+  "test": "echo \"Error: no test specified\" && exit 1",
+  
+    
+  "start": "node index.js",
+  
+    
+  "start:dev": "nodemon index.js"
+  
   },
+  
   "keywords": [],
+  
   "author": "",
+  
   "license": "ISC",
+  
   "description": "",
-
+  
   "dependencies": {
-    "nodemon": "^3.0.2"
+  
+    
+  "commander": "^11.1.0",
+  
+    
+  "nanoid": "^5.0.4"
+  
+  },
+  
+  "devDependencies": {
+  
+    
+  "nodemon": "^3.0.2"
+  
   }
 }
