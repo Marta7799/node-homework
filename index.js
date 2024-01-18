@@ -1,48 +1,39 @@
-const { program } = require("commander");
+const contacts = require("./contacts");
 
-const {
-  listContacts,
-  getContactById,
-  removeContact,
-  addContact,
-} = require("./contacts");
+const yargs = require("yargs");
+const { hideBin } = require("yargs/helpers");
 
-program
-  .option("-a, --action <type>", "choose action")
-  .option("-i, --id <type>", "user id")
-  .option("-n, --name <type>", "user name")
-  .option("-e, --email <type>", "user email")
-  .option("-p, --phone <type>", "user phone");
-
-program.parse(process.argv);
-
-const argv = program.opts();
-
-const invokeAction = async ({ action, id, name, email, phone }) => {
+async function invokeAction({ action, id, name, email, phone }) {
   switch (action) {
     case "list":
-      const contacts = await listContacts();
-      console.table(contacts);
+      const allContacts = await contacts.listContacts();
+      console.table(allContacts);
       break;
 
     case "get":
-      const contact = await getContactById(id);
-      console.table(contact);
+      const contact = await contacts.getContactById(id);
+      if (!contact) {
+        throw new Error(`Contact with id=${id} not found`);
+      }
+      console.log(contact);
       break;
 
     case "add":
-      const newContact = await addContact(name, email, phone);
-      console.table(newContact);
+      const newContact = await contacts.addContact(name, email, phone);
+      console.log(newContact);
       break;
 
     case "remove":
-      const remContact = await removeContact(id);
-      console.table(remContact);
+      const removeContact = await contacts.removeContact(id);
+      console.log(removeContact);
       break;
 
     default:
       console.warn("\x1B[31m Unknown action type!");
   }
-};
+}
+
+const arr = hideBin(process.argv);
+const { argv } = yargs(arr);
 
 invokeAction(argv);
